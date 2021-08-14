@@ -49,6 +49,7 @@ public class UserInterface {
 
     public void program(){
         System.out.printf("\t\tSelecione o Método de Ordenação\n");
+        System.out.printf("\t\t-------------------------------\n\n");
         System.out.printf("Pressione a tecla para executar a função correspondente:\n\n");
         System.out.printf("Digite (1) - Selection Sort\n\n");
         System.out.printf("Digite (2) - Insertion Sort\n\n");
