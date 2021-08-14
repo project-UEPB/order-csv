@@ -1,17 +1,37 @@
 package algoritms;
 
-public class InsertionSort extends ReadCSV {
+public class InsertionSort implements SortInterface {
   
-  InsertionSort(String filePath, String sep) {
-    super(filePath, sep);
-  }
-  
-  public static void printMatrix(String [][] matrix) {
-    for (int i = 0; i < matrix.length; i++) {
-      for (int j = 0; j < matrix[0].length; j++) {
-        System.out.printf(" %s ", matrix[i][j]);
-      }
-      System.out.println();
-    }
+  @Override
+  public String [][] sort(String[][] matrix, int colomunIndex) {
+    // TODO Auto-generated method stub
+    
+    // for (int i = 1; i < vetor.length; i++){ 
+    //   int aux = vetor[i];
+    //   int j = i;
+      
+    //   while ((j > 0) && (vetor[j-1] > aux)){
+    //     vetor[j] = vetor[j-1];
+    //     j -= 1;
+    //   }
+    //   vetor[j] = aux;
+    // }
+
+    return matrix;
   }
 }
+
+/*
+public void insertionSort(int[] vetor){
+  for (int i = 1; i < vetor.length; i++){ 
+    int aux = vetor[i];
+    int j = i;
+    
+    while ((j > 0) && (vetor[j-1] > aux)){
+      vetor[j] = vetor[j-1];
+      j -= 1;
+    }
+    vetor[j] = aux;
+  }
+}
+*/

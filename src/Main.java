@@ -5,9 +5,9 @@ import algoritms.ReadCSV;
 public class Main {
   public static void main(String[] args) {
     
-    ReadCSV filetest = new ReadCSV("csvs/casos_cg.csv", ",");
+    // ReadCSV filetest = new ReadCSV("csvs/casos_cg.csv", ",");
 
-    filetest.readCsv();
+    // filetest.readCsv();
 
   }  
 }

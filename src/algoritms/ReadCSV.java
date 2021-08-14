@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 public class ReadCSV {
 
   private String filePath;
@@ -16,7 +15,7 @@ public class ReadCSV {
     this.sep = sep.length() == 0 ? "," : sep;
   }
 
-  public void readCsv() {
+  public void readCsv(SortInterface algoritm) {
 
     String arquivoCSV = this.filePath;
     BufferedReader br = null;
@@ -36,6 +35,10 @@ public class ReadCSV {
 
       }
 
+      int col = indexOfColumn(matrix, "id");
+
+      String [][] newMatrix = algoritm.sort(matrix, col);
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -49,6 +52,15 @@ public class ReadCSV {
         }
       }
     }
+  }
+
+  private int indexOfColumn(String [][] matrix, String column) {
+    for (int i = 0; i < matrix[0].length; i++) {
+      if (matrix[0][i].equalsIgnoreCase(column)) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   private int lineSize() {
