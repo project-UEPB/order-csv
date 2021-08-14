@@ -4,14 +4,21 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 
 public class ReadCSV {
 
   private String filePath;
   private String sep;
+  private String pathToSave;
+  private String columnToOrder;
 
-  public ReadCSV(String filePath, String sep) {
+  public ReadCSV(String filePath, String pathToSave, String columnToOrder, String sep) {
     this.filePath = filePath;
+    this.pathToSave = pathToSave;
+    this.columnToOrder = columnToOrder;
     this.sep = sep.length() == 0 ? "," : sep;
   }
 
@@ -21,23 +28,26 @@ public class ReadCSV {
     BufferedReader br = null;
     String linha = "";
 
-    int lineSize = lineSize();
-    int columnSize = columnsSize();
+    int lineSize = lineSize()-1;
+    int columnSize = columnsSize()-1;
     String [][] matrix = new String[lineSize][columnSize];
     int i = 0;
 
     try {
 
       br = new BufferedReader(new FileReader(arquivoCSV));
+      String [] header = br.readLine().split(this.sep);
       while ((linha = br.readLine()) != null) {
 
         matrix[i++] = linha.split(this.sep);
 
       }
 
-      int col = indexOfColumn(matrix, "id");
+      int col = indexOfColumn(header);
 
       String [][] newMatrix = algoritm.sort(matrix, col);
+
+      saveInCsv(newMatrix, header);
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -54,9 +64,29 @@ public class ReadCSV {
     }
   }
 
-  private int indexOfColumn(String [][] matrix, String column) {
-    for (int i = 0; i < matrix[0].length; i++) {
-      if (matrix[0][i].equalsIgnoreCase(column)) {
+  private void saveInCsv(String [][] matrix, String [] header) {
+    try {
+      
+      FileWriter arq = new FileWriter(this.pathToSave);
+      PrintWriter gravarArq = new PrintWriter(arq);
+      String head = String.join(",", header);
+      
+      gravarArq.println(head);
+      for (int i = 0; i < matrix.length; i++) {
+        String line = String.join(",", matrix[i]);
+        gravarArq.println(line);
+      }
+
+      gravarArq.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  private int indexOfColumn(String [] header) {
+    for (int i = 0; i < header.length; i++) {
+      if (header[i].equalsIgnoreCase(this.columnToOrder)) {
         return i;
       }
     }

@@ -5,8 +5,8 @@ public class UserInterface {
     Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Main myObj = new Main();
-        myObj.menu();
+        // Main myObj = new Main();
+        // myObj.menu();
     }
 
     public void menu() { 
@@ -126,8 +126,8 @@ public class UserInterface {
 
     public void promptEnterKey(){
         System.out.println("Press \"ENTER\" to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        // Scanner scanner = new Scanner(System.in);
+        // scanner.nextLine();
     }
 
     public final static void clearConsole() {  
