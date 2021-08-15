@@ -4,6 +4,7 @@ import java.util.*;
 
 import algoritms.ReadCSV;
 import algoritms.SelectionSort;
+import algoritms.InsertionSort;
 
 public class UserInterface {
     Scanner entrada = new Scanner(System.in);
@@ -102,7 +103,21 @@ public class UserInterface {
             clearConsole();
         }
         else if (digito == 2) {
-        // insertionSort();
+            ReadCSV filetest = new ReadCSV("csvs/base/casos_cg.csv",
+            "csvs/insertionSort/insertionSort_ordena_casos.csv", 
+            "csvs/insertionSort/metrics_insertionSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            this.loading = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    loading();
+                }
+            }.start();
+
+            filetest.readCsv(new InsertionSort());
+            this.loading = false;
             
             clearConsole();
         }
