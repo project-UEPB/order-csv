@@ -1,53 +1,69 @@
 package userInterface;
+import java.io.IOException;
 import java.util.*;
 
-public class UserInterface {
-    Scanner sc = new Scanner(System.in);
+import algoritms.ReadCSV;
+import algoritms.SelectionSort;
 
-    public static void main(String[] args) {
-        // Main myObj = new Main();
-        // myObj.menu();
+public class UserInterface {
+    Scanner entrada = new Scanner(System.in);
+    boolean loading;
+
+    public UserInterface() {
+        this.loading = false;
     }
 
     public void menu() { 
+        
         while (true) {
-        System.out.printf("\t\t-------------------------------\n");
-        System.out.printf("\t\t|      COVID DATA Brasil      |\n");
-        System.out.printf("\t\t-------------------------------\n");
-        System.out.printf("Pressione a tecla para executar a função correspondente:\n\n");
-        System.out.printf("Digite (1) - INICIAR\n\n");
-        System.out.printf("Digite (2) - SOBRE\n\n");
-        System.out.printf("Digite (3) - CRÉDITOS\n\n");
-        System.out.printf("Digite (0) - SAIR\n\n");
-        int digito = sc.nextInt();
-        clearConsole();   
-
-        if (digito == 1) {
-            program();  
-        }
-        else if (digito == 2) {
-            sobre();
-        }
-        else if (digito == 3) {
-            creditos();
-        }
-        else if (digito == 0) {
-            clearConsole();  
-            System.out.printf(" PROGRAMA ENCERRADO !\n");
-            break;
-        } else {
-            System.out.printf("Valor incorreto, tente novamente!\n");
             
-            try { 
-            Thread.sleep (1500); 
-            } catch (InterruptedException ex) {}
+            System.out.printf("\t\t-------------------------------\n");
+            System.out.printf("\t\t|      COVID DATA Brasil      |\n");
+            System.out.printf("\t\t-------------------------------\n");
+            System.out.printf("Pressione a tecla para executar a função correspondente:\n\n");
+            System.out.printf("Digite (1) - INICIAR\n\n");
+            System.out.printf("Digite (2) - SOBRE\n\n");
+            System.out.printf("Digite (3) - CRÉDITOS\n\n");
+            System.out.printf("Digite (0) - SAIR\n\n");
+            
+            int digito = getEnter();
 
             clearConsole();   
+
+            if (digito == 1) {
+                program();  
+            }
+            else if (digito == 2) {
+                sobre();
+            }
+            else if (digito == 3) {
+                creditos();
+            }
+            else if (digito == 0) {
+                clearConsole();  
+                System.out.printf(" PROGRAMA ENCERRADO !\n");
+                entrada.close();
+                break;
+            } else {
+                System.out.printf("Valor incorreto, tente novamente!\n");
+                
+                try { 
+                    Thread.sleep (1500); 
+                } catch (InterruptedException ex) {}
+
+                clearConsole();   
+            }
         }
-        }
+
+    }
+
+    private int getEnter() {
+        int num = entrada.nextInt();
+        return num;
     }
 
     public void program(){
+
         System.out.printf("\t\tSelecione o Método de Ordenação\n");
         System.out.printf("\t\t-------------------------------\n\n");
         System.out.printf("Pressione a tecla para executar a função correspondente:\n\n");
@@ -58,55 +74,78 @@ public class UserInterface {
         System.out.printf("Digite (5) - QuickSort com Mediana de 3\n\n");
         System.out.printf("Digite (6) - counting\n\n");
         System.out.printf("Digite (7) - HeapSort\n\n");
+        System.out.printf("Digite (8) - Execultar Todos\n\n");
         System.out.printf("Digite (0) - SAIR\n\n");
-        int digito = sc.nextInt();
+        
+        int digito = getEnter();
         clearConsole();   
-
+        
+        
         if (digito == 1) {
-        // selectionSort();
-        promptEnterKey();
-        clearConsole();
+            ReadCSV filetest = new ReadCSV("csvs/base/casos_cg.csv",
+            "csvs/selectionSort/selectionSort_ordena_casos.csv", 
+            "csvs/selectionSort/metrics_selectionSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+            
+            this.loading = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    loading();
+                }
+            }.start();
+
+            filetest.readCsv(new SelectionSort());
+            this.loading = false;
+            
+            
+            clearConsole();
         }
         else if (digito == 2) {
         // insertionSort();
-        promptEnterKey();
-        clearConsole();
+            
+            clearConsole();
         }
         else if (digito == 3) {
         // mergeSort();
-        promptEnterKey();
-        clearConsole();
+            
+            clearConsole();
         }
         else if (digito == 4) {
         // quickSort();
-        promptEnterKey();
-        clearConsole();
+            
+            clearConsole();
         }
         else if (digito == 5) {
         // quickSortWith3Median();
-        promptEnterKey();
-        clearConsole();
+            
+            clearConsole();
         }
         else if (digito == 6) {
         // counting();
-        promptEnterKey();
-        clearConsole();
+            
+            clearConsole();
         }
         else if (digito == 7) {
         // HeapSort();
-        promptEnterKey();
-        clearConsole();
+            
+            clearConsole();
+        }
+        else if (digito == 8) {
+        // Todos os algoritmos;
+            
+            clearConsole();
         }
         else if (digito == 0) {
-        clearConsole();
+            clearConsole();
         } else {
-        System.out.printf("Valor incorreto, tente novamente!\n");
+            System.out.printf("Valor incorreto, tente novamente!\n");
         
-        try { 
-            Thread.sleep (1500); 
-        } catch (InterruptedException ex) {}
+            try { 
+                Thread.sleep (1500); 
+            } catch (InterruptedException ex) {}
 
-        clearConsole(); 
+            clearConsole(); 
         }
     }
 
@@ -126,13 +165,32 @@ public class UserInterface {
 
     public void promptEnterKey(){
         System.out.println("Press \"ENTER\" to continue...");
-        // Scanner scanner = new Scanner(System.in);
-        // scanner.nextLine();
+        try {
+            System.in.read(new byte[2]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public final static void clearConsole() {  
         System.out.print("\033[H\033[2J");
         System.out.flush(); 
+    }
+
+    private void loading() {
+        String [] arr = {"/", "|", "\\", "-"};
+        int i = 0;
+        while (this.loading) {
+            System.out.printf("Processando %s\r", arr[i++]);
+          
+            if (i == arr.length) {
+                i = 0;
+            }
+    
+            try {
+                Thread.sleep(100); 
+            } catch (InterruptedException ex) {}
+        }
     }
 }
 

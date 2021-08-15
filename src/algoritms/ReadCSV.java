@@ -14,11 +14,14 @@ public class ReadCSV {
   private String sep;
   private String pathToSave;
   private String columnToOrder;
+  private String pathToSaveMetrics;
 
-  public ReadCSV(String filePath, String pathToSave, String columnToOrder, String sep) {
+  public ReadCSV(String filePath, String pathToSave, 
+                 String pathToSaveMetrics, String columnToOrder, String sep) {
     this.filePath = filePath;
     this.pathToSave = pathToSave;
     this.columnToOrder = columnToOrder;
+    this.pathToSaveMetrics = pathToSaveMetrics;
     this.sep = sep.length() == 0 ? "," : sep;
   }
 
@@ -45,7 +48,7 @@ public class ReadCSV {
 
       int col = indexOfColumn(header);
 
-      String [][] newMatrix = algoritm.sort(matrix, col);
+      String [][] newMatrix = algoritm.sort(matrix, col, this.pathToSaveMetrics);
 
       saveInCsv(newMatrix, header);
 

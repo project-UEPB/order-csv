@@ -3,9 +3,9 @@ package algoritms;
 public class SelectionSort implements SortInterface {
   
   @Override
-  public String [][] sort(String[][] matrix, int colomunIndex) {
+  public String [][] sort(String[][] matrix, int colomunIndex, String pathToSaveMetrics) {
 
-    Metrics metrics = new Metrics("csvs/Metrics_selectionSort.csv");
+    Metrics metrics = new Metrics(pathToSaveMetrics);
     metrics.start();
     metrics.writeMetrics();
 
