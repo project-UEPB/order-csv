@@ -5,6 +5,10 @@ import java.util.*;
 import algoritms.ReadCSV;
 import algoritms.SelectionSort;
 import algoritms.InsertionSort;
+import algoritms.MergeSort;
+import algoritms.QuickSort;
+
+
 
 public class UserInterface {
     Scanner entrada = new Scanner(System.in);
@@ -126,6 +130,7 @@ public class UserInterface {
             "csvs/mergeSort/mergeSort_ordena_casos.csv", 
             "csvs/mergeSort/metrics_mergeSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
+            
 
             this.loading = true;
             new Thread() {
@@ -135,18 +140,38 @@ public class UserInterface {
                 }
             }.start();
 
-            filetest.readCsv(new InsertionSort());
+            filetest.readCsv(new MergeSort());
             this.loading = false;
             
             clearConsole();
         }
         else if (digito == 4) {
-        // quickSort();
             
+            ReadCSV filetest = new ReadCSV("csvs/base/casos_cg.csv",
+            "csvs/quickSort/quickSort_ordena_casos.csv", 
+            "csvs/quickSort/metrics_quickSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+            
+
+            this.loading = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    loading();
+                }
+            }.start();
+
+            filetest.readCsv(new QuickSort());
+            this.loading = false;
+
             clearConsole();
         }
         else if (digito == 5) {
-        // quickSortWith3Median();
+            // quickSortWith3Median();
+            // ReadCSV filetest = new ReadCSV("csvs/base/csv_for_test.csv",
+            // "csvs/test/test_ordena_casos.csv", 
+            // "csvs/test/metrics_test_ordena_casos.csv", 
+            // "id", ",");
             
             clearConsole();
         }

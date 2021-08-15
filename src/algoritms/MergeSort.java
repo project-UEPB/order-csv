@@ -1,17 +1,27 @@
 package algoritms;
 
 public class MergeSort implements SortInterface {
+  
   int indexColumn;
-
+  Metrics metrics;
+  
   public MergeSort() {
     this.indexColumn = 0;
+    this.metrics = null;
   }
 
   @Override
   public String[][] sort(String[][] matrix, int colomunIndex, String pathToSaveMetrics) {
     
+    this.metrics = new Metrics(pathToSaveMetrics);
+    this.metrics.start();
+    this.metrics.writeMetrics();
+
     this.indexColumn = colomunIndex;
     run(matrix, 0, matrix.length - 1);
+
+    this.metrics.start();
+    this.metrics.writeMetrics();
     
     return matrix;
   }
@@ -23,10 +33,13 @@ public class MergeSort implements SortInterface {
     String L[][] = new String[n1][matrix[0].length];
     String R[][] = new String[n2][matrix[0].length];
 
-    for (int i = 0; i < n1; ++i)
+    for (int i = 0; i < n1; ++i) {
       L[i] = matrix[l + i];
-    for (int j = 0; j < n2; ++j)
+    }
+
+    for (int j = 0; j < n2; ++j) {
       R[j] = matrix[m + 1 + j];
+    }
 
     int i = 0, j = 0;
 
@@ -60,10 +73,16 @@ public class MergeSort implements SortInterface {
     if (l < r) {
       int m =l+ (r-l)/2;
 
+      this.metrics.start();
+      this.metrics.writeMetrics();
+
       run(matrix, l, m);
       run(matrix, m + 1, r);
 
       merge(matrix, l, m, r);
+
+      this.metrics.start();
+      this.metrics.writeMetrics();
     }
   }
 
