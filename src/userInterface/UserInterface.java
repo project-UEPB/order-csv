@@ -72,7 +72,7 @@ public class UserInterface {
         System.out.printf("Digite (2) - Insertion Sort\n\n");
         System.out.printf("Digite (3) - Merge Sort\n\n");
         System.out.printf("Digite (4) - Quick Sort\n\n");
-        System.out.printf("Digite (5) - QuickSort com Mediana de 3\n\n");
+        System.out.printf("Digite (5) - Quick Sort com Mediana de 3\n\n");
         System.out.printf("Digite (6) - counting\n\n");
         System.out.printf("Digite (7) - HeapSort\n\n");
         System.out.printf("Digite (8) - Execultar Todos\n\n");
@@ -122,7 +122,21 @@ public class UserInterface {
             clearConsole();
         }
         else if (digito == 3) {
-        // mergeSort();
+            ReadCSV filetest = new ReadCSV("csvs/base/casos_cg.csv",
+            "csvs/mergeSort/mergeSort_ordena_casos.csv", 
+            "csvs/mergeSort/metrics_mergeSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            this.loading = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    loading();
+                }
+            }.start();
+
+            filetest.readCsv(new InsertionSort());
+            this.loading = false;
             
             clearConsole();
         }
