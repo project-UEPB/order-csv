@@ -65,8 +65,14 @@ public class Console {
     }
 
     private int getEnter() {
-        int num = entrada.nextInt();
-        return num;
+        String linha = entrada.nextLine(); // ler a linha (termina no enter)
+
+        try{
+            int inteiro = Integer.parseInt(linha); // (tenta converter pra int os dados inseridos)
+            return inteiro;
+        } catch(Exception e){
+            return 20;
+        }
     }
 
     public void program(){
@@ -328,7 +334,17 @@ public class Console {
             clearConsole();
         } else if (digito == 8) {
             
+            this.loading = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    loading();
+                }
+            }.start();
+
+            /* Coloque todos os algoritmos entre a Thread e o loading = false */ 
             
+            this.loading = false;
             clearConsole();
         }
         else if (digito == 0) {
