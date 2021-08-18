@@ -1,4 +1,6 @@
 package Console;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,11 +18,31 @@ public class Console {
     Scanner entrada = new Scanner(System.in);
     boolean loading;
 
-    public Console() {
+    File directory = new File("");
+    String basePAth;
+    String fileBase;
+
+    public Console(String fileBase) {
         this.loading = false;
+        this.basePAth = directory.getAbsolutePath();
+        
+        boolean hasSRC = false;
+        for (String i : this.basePAth.split("/")) {
+            if (i.equalsIgnoreCase("src")) {
+                hasSRC = true;
+            }
+        }
+
+        if (hasSRC) {
+            this.basePAth = this.basePAth + "/csvs";
+        } else {
+            this.basePAth = this.basePAth + "/src/csvs";
+        }
+
+        this.fileBase = this.basePAth + "/base/" + fileBase;
     }
 
-    public void menu() { 
+    public void menu() {
         
         while (true) {
             
@@ -96,9 +118,9 @@ public class Console {
         
         if (digito == 1) {
 
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/SelectionSort/selectionSort_ordena_casos.csv", 
-            "csvs/SelectionSort/metrics_selectionSort_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_casos.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
             
             this.loading = true;
@@ -110,28 +132,29 @@ public class Console {
             }.start();
 
             casosAcumulados.readCsv(new SelectionSort(true));
-
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/SelectionSort/selectionSort_ordena_obitos.csv", 
-            "csvs/SelectionSort/metrics_selectionSort_ordena_obitos.csv", 
+            
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_obitos.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
 
             obitosAcumulados.readCsv(new SelectionSort(true));
 
-            ReadCSV cidade = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/SelectionSort/selectionSort_ordena_cidades.csv", 
-            "csvs/SelectionSort/metrics_selectionSort_ordena_cidades.csv", 
+            ReadCSV cidade = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_cidades.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_cidades.csv", 
             "city", ",");
 
             cidade.readCsv(new SelectionSort(false));
-            this.loading = false; 
+            this.loading = false;
             clearConsole();
+             
 
         } else if (digito == 2) {
 
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/InsertionSort/insertionSort_ordena_casos.csv", 
-            "csvs/InsertionSort/metrics_insertionSort_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/InsertionSort/insertionSort_ordena_casos.csv", 
+            this.basePAth+"/InsertionSort/metrics_insertionSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
 
             this.loading = true;
@@ -144,16 +167,16 @@ public class Console {
 
             casosAcumulados.readCsv(new InsertionSort(true));
 
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/InsertionSort/InsertionSort_ordena_obitos.csv", 
-            "csvs/InsertionSort/metrics_InsertionSort_ordena_obitos.csv", 
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/InsertionSort/InsertionSort_ordena_obitos.csv", 
+            this.basePAth+"/InsertionSort/metrics_InsertionSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
 
             obitosAcumulados.readCsv(new InsertionSort(true));
 
-            ReadCSV cidade = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/InsertionSort/InsertionSort_ordena_cidades.csv", 
-            "csvs/InsertionSort/metrics_InsertionSort_ordena_cidades.csv", 
+            ReadCSV cidade = new ReadCSV(this.fileBase,
+            this.basePAth+"/InsertionSort/InsertionSort_ordena_cidades.csv", 
+            this.basePAth+"/InsertionSort/metrics_InsertionSort_ordena_cidades.csv", 
             "city", ",");
 
             cidade.readCsv(new InsertionSort(false));
@@ -162,9 +185,9 @@ public class Console {
 
         } else if (digito == 3) {
 
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/MergeSort/MergeSort_ordena_casos.csv", 
-            "csvs/MergeSort/metrics_MergeSort_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/MergeSort/MergeSort_ordena_casos.csv", 
+            this.basePAth+"/MergeSort/metrics_MergeSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
             
 
@@ -178,17 +201,17 @@ public class Console {
 
             casosAcumulados.readCsv(new MergeSort(true));
 
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/MergeSort/MergeSort_ordena_obitos.csv", 
-            "csvs/MergeSort/metrics_MergeSort_ordena_obitos.csv", 
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/MergeSort/MergeSort_ordena_obitos.csv", 
+            this.basePAth+"/MergeSort/metrics_MergeSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
             
 
             obitosAcumulados.readCsv(new MergeSort(true));
             
-            ReadCSV cidades = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/MergeSort/MergeSort_ordena_cidades.csv", 
-            "csvs/MergeSort/metrics_MergeSort_ordena_cidades.csv", 
+            ReadCSV cidades = new ReadCSV(this.fileBase,
+            this.basePAth+"/MergeSort/MergeSort_ordena_cidades.csv", 
+            this.basePAth+"/MergeSort/metrics_MergeSort_ordena_cidades.csv", 
             "city", ",");
             
 
@@ -198,9 +221,9 @@ public class Console {
             clearConsole();
         } else if (digito == 4) {
             
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/QuickSort/QuickSort_ordena_casos.csv", 
-            "csvs/QuickSort/metrics_QuickSort_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSort/QuickSort_ordena_casos.csv", 
+            this.basePAth+"/QuickSort/metrics_QuickSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
 
             this.loading = true;
@@ -214,16 +237,16 @@ public class Console {
 
             casosAcumulados.readCsv(new QuickSort(true));
 
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/QuickSort/QuickSort_ordena_obitos.csv", 
-            "csvs/QuickSort/metrics_QuickSort_ordena_obitos.csv", 
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSort/QuickSort_ordena_obitos.csv", 
+            this.basePAth+"/QuickSort/metrics_QuickSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
 
             obitosAcumulados.readCsv(new QuickSort(true));
 
-            ReadCSV cidades = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/QuickSort/QuickSort_ordena_cidades.csv", 
-            "csvs/QuickSort/metrics_QuickSort_ordena_cidades.csv", 
+            ReadCSV cidades = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSort/QuickSort_ordena_cidades.csv", 
+            this.basePAth+"/QuickSort/metrics_QuickSort_ordena_cidades.csv", 
             "city", ",");
 
             cidades.readCsv(new QuickSort(false));
@@ -233,9 +256,9 @@ public class Console {
 
         } else if (digito == 5) {
 
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/QuickSortWithMedian3/QuickSortWithMedian3_ordena_casos.csv", 
-            "csvs/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSortWithMedian3/QuickSortWithMedian3_ordena_casos.csv", 
+            this.basePAth+"/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_casos.csv", 
             "last_available_confirmed", ",");
         
             this.loading = true;
@@ -248,16 +271,16 @@ public class Console {
     
             casosAcumulados.readCsv(new QuickSortWithMedian3(true));
 
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/QuickSortWithMedian3/QuickSortWithMedian3_ordena_obitos.csv", 
-            "csvs/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_obitos.csv", 
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSortWithMedian3/QuickSortWithMedian3_ordena_obitos.csv", 
+            this.basePAth+"/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_obitos.csv", 
             "last_available_deaths", ",");
 
             obitosAcumulados.readCsv(new QuickSortWithMedian3(true));
 
-            ReadCSV cidades = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/QuickSortWithMedian3/QuickSortWithMedian3_ordena_cidades.csv", 
-            "csvs/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_cidades.csv", 
+            ReadCSV cidades = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSortWithMedian3/QuickSortWithMedian3_ordena_cidades.csv", 
+            this.basePAth+"/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_cidades.csv", 
             "city", ",");
 
             cidades.readCsv(new QuickSortWithMedian3(false));
@@ -267,9 +290,9 @@ public class Console {
             
         } else if (digito == 6) {
             
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/CountingSort/CountingSort_ordena_casos.csv", 
-            "csvs/CountingSort/metrics_CountingSort_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/CountingSort/CountingSort_ordena_casos.csv", 
+            this.basePAth+"/CountingSort/metrics_CountingSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
 
             this.loading = true;
@@ -282,16 +305,16 @@ public class Console {
 
             casosAcumulados.readCsv(new CountingSort(true));
 
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/CountingSort/CountingSort_ordena_obitos.csv", 
-            "csvs/CountingSort/metrics_CountingSort_ordena_obitos.csv", 
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/CountingSort/CountingSort_ordena_obitos.csv", 
+            this.basePAth+"/CountingSort/metrics_CountingSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
 
             obitosAcumulados.readCsv(new CountingSort(true));
             
-            ReadCSV cidades = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/CountingSort/CountingSort_ordena_cidades.csv", 
-            "csvs/CountingSort/metrics_CountingSort_ordena_cidades.csv", 
+            ReadCSV cidades = new ReadCSV(this.fileBase,
+            this.basePAth+"/CountingSort/CountingSort_ordena_cidades.csv", 
+            this.basePAth+"/CountingSort/metrics_CountingSort_ordena_cidades.csv", 
             "city", ",");
 
             cidades.readCsv(new CountingSort(false));
@@ -301,9 +324,9 @@ public class Console {
 
         } else if (digito == 7) {
 
-            ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/HeapSort/HeapSort_ordena_casos.csv", 
-            "csvs/HeapSort/metrics_HeapSort_ordena_casos.csv", 
+            ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/HeapSort/HeapSort_ordena_casos.csv", 
+            this.basePAth+"/HeapSort/metrics_HeapSort_ordena_casos.csv", 
             "last_available_confirmed", ",");
 
             this.loading = true;
@@ -316,16 +339,16 @@ public class Console {
 
             casosAcumulados.readCsv(new HeapSort(true));
 
-            ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/HeapSort/HeapSort_ordena_obitos.csv", 
-            "csvs/HeapSort/metrics_HeapSort_ordena_obitos.csv", 
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/HeapSort/HeapSort_ordena_obitos.csv", 
+            this.basePAth+"/HeapSort/metrics_HeapSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
             
             obitosAcumulados.readCsv(new HeapSort(true));
             
-            ReadCSV cidades = new ReadCSV("csvs/base/casos_cg.csv",
-            "csvs/HeapSort/HeapSort_ordena_cidades.csv", 
-            "csvs/HeapSort/metrics_HeapSort_ordena_cidades.csv", 
+            ReadCSV cidades = new ReadCSV(this.fileBase,
+            this.basePAth+"/HeapSort/HeapSort_ordena_cidades.csv", 
+            this.basePAth+"/HeapSort/metrics_HeapSort_ordena_cidades.csv", 
             "city", ",");
             
             cidades.readCsv(new HeapSort(false));
@@ -342,7 +365,174 @@ public class Console {
                 }
             }.start();
 
-            /* Coloque todos os algoritmos entre a Thread e o loading = false */ 
+            // SelectionSort
+            ReadCSV casosAcumuladosSelectionSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_casos.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            casosAcumuladosSelectionSort.readCsv(new SelectionSort(true));
+            
+            ReadCSV obitosAcumuladosSelectionSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_obitos.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+
+            obitosAcumuladosSelectionSort.readCsv(new SelectionSort(true));
+
+            ReadCSV cidadeSelectionSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_cidades.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_cidades.csv", 
+            "city", ",");
+
+            cidadeSelectionSort.readCsv(new SelectionSort(false));
+            // SelectionSort
+
+
+            // InsertionSort
+            ReadCSV casosAcumuladosInsertionSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/InsertionSort/insertionSort_ordena_casos.csv", 
+            this.basePAth+"/InsertionSort/metrics_insertionSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            casosAcumuladosInsertionSort.readCsv(new InsertionSort(true));
+
+            ReadCSV obitosAcumuladosInsertionSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/InsertionSort/InsertionSort_ordena_obitos.csv", 
+            this.basePAth+"/InsertionSort/metrics_InsertionSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+
+            obitosAcumuladosInsertionSort.readCsv(new InsertionSort(true));
+
+            ReadCSV cidadeInsertionSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/InsertionSort/InsertionSort_ordena_cidades.csv", 
+            this.basePAth+"/InsertionSort/metrics_InsertionSort_ordena_cidades.csv", 
+            "city", ",");
+
+            cidadeInsertionSort.readCsv(new InsertionSort(false));
+            // InsertionSort
+
+            
+            // MergeSort
+            ReadCSV casosAcumuladosMergeSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/MergeSort/MergeSort_ordena_casos.csv", 
+            this.basePAth+"/MergeSort/metrics_MergeSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            casosAcumuladosMergeSort.readCsv(new MergeSort(true));
+
+            ReadCSV obitosAcumuladosMergeSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/MergeSort/MergeSort_ordena_obitos.csv", 
+            this.basePAth+"/MergeSort/metrics_MergeSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+            
+
+            obitosAcumuladosMergeSort.readCsv(new MergeSort(true));
+            
+            ReadCSV cidadesMergeSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/MergeSort/MergeSort_ordena_cidades.csv", 
+            this.basePAth+"/MergeSort/metrics_MergeSort_ordena_cidades.csv", 
+            "city", ",");
+
+            cidadesMergeSort.readCsv(new MergeSort(false));
+            // MergeSort
+
+
+            // QuickSort
+            ReadCSV casosAcumuladosQuickSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSort/QuickSort_ordena_casos.csv", 
+            this.basePAth+"/QuickSort/metrics_QuickSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            casosAcumuladosQuickSort.readCsv(new QuickSort(true));
+
+            ReadCSV obitosAcumuladosQuickSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSort/QuickSort_ordena_obitos.csv", 
+            this.basePAth+"/QuickSort/metrics_QuickSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+
+            obitosAcumuladosQuickSort.readCsv(new QuickSort(true));
+
+            ReadCSV cidadesQuickSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSort/QuickSort_ordena_cidades.csv", 
+            this.basePAth+"/QuickSort/metrics_QuickSort_ordena_cidades.csv", 
+            "city", ",");
+
+            cidadesQuickSort.readCsv(new QuickSort(false));
+            // QuickSort
+
+
+            // QuickSortWithMedian3
+            ReadCSV casosAcumuladosQuickSortWithMedian3 = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSortWithMedian3/QuickSortWithMedian3_ordena_casos.csv", 
+            this.basePAth+"/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+    
+            casosAcumuladosQuickSortWithMedian3.readCsv(new QuickSortWithMedian3(true));
+
+            ReadCSV obitosAcumuladosQuickSortWithMedian3 = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSortWithMedian3/QuickSortWithMedian3_ordena_obitos.csv", 
+            this.basePAth+"/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+
+            obitosAcumuladosQuickSortWithMedian3.readCsv(new QuickSortWithMedian3(true));
+
+            ReadCSV cidadesQuickSortWithMedian3 = new ReadCSV(this.fileBase,
+            this.basePAth+"/QuickSortWithMedian3/QuickSortWithMedian3_ordena_cidades.csv", 
+            this.basePAth+"/QuickSortWithMedian3/metrics_QuickSortWithMedian3_ordena_cidades.csv", 
+            "city", ",");
+
+            cidadesQuickSortWithMedian3.readCsv(new QuickSortWithMedian3(false));
+            // QuickSortWithMedian3
+
+            
+            // CountingSort
+            ReadCSV casosAcumuladosCountingSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/CountingSort/CountingSort_ordena_casos.csv", 
+            this.basePAth+"/CountingSort/metrics_CountingSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            casosAcumuladosCountingSort.readCsv(new CountingSort(true));
+
+            ReadCSV obitosAcumuladosCountingSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/CountingSort/CountingSort_ordena_obitos.csv", 
+            this.basePAth+"/CountingSort/metrics_CountingSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+
+            obitosAcumuladosCountingSort.readCsv(new CountingSort(true));
+            
+            ReadCSV cidadesCountingSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/CountingSort/CountingSort_ordena_cidades.csv", 
+            this.basePAth+"/CountingSort/metrics_CountingSort_ordena_cidades.csv", 
+            "city", ",");
+
+            cidadesCountingSort.readCsv(new CountingSort(false));
+            // CountingSort
+
+
+            // HeapSort
+            ReadCSV casosAcumuladosHeapSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/HeapSort/HeapSort_ordena_casos.csv", 
+            this.basePAth+"/HeapSort/metrics_HeapSort_ordena_casos.csv", 
+            "last_available_confirmed", ",");
+
+            casosAcumuladosHeapSort.readCsv(new HeapSort(true));
+
+            ReadCSV obitosAcumuladosHeapSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/HeapSort/HeapSort_ordena_obitos.csv", 
+            this.basePAth+"/HeapSort/metrics_HeapSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
+            
+            obitosAcumuladosHeapSort.readCsv(new HeapSort(true));
+            
+            ReadCSV cidadesHeapSort = new ReadCSV(this.fileBase,
+            this.basePAth+"/HeapSort/HeapSort_ordena_cidades.csv", 
+            this.basePAth+"/HeapSort/metrics_HeapSort_ordena_cidades.csv", 
+            "city", ",");
+            
+            cidadesHeapSort.readCsv(new HeapSort(false));
+            // HeapSort
+            
             
             this.loading = false;
             clearConsole();
