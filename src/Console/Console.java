@@ -24,11 +24,25 @@ public class Console {
 
     public Console(String fileBase) {
         this.loading = false;
-        this.basePAth = directory.getAbsolutePath() + "/src/csvs";
+        this.basePAth = directory.getAbsolutePath();
+        
+        boolean hasSRC = false;
+        for (String i : this.basePAth.split("/")) {
+            if (i.equalsIgnoreCase("src")) {
+                hasSRC = true;
+            }
+        }
+
+        if (hasSRC) {
+            this.basePAth = this.basePAth + "/csvs";
+        } else {
+            this.basePAth = this.basePAth + "/src/csvs";
+        }
+
         this.fileBase = this.basePAth + "/base/" + fileBase;
     }
 
-    public void menu() { 
+    public void menu() {
         
         while (true) {
             
