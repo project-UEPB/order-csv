@@ -24,7 +24,7 @@ public class Console {
 
     public Console(String fileBase) {
         this.loading = false;
-        this.basePAth = directory.getAbsolutePath() + "/csvs";
+        this.basePAth = directory.getAbsolutePath() + "/src/csvs";
         this.fileBase = this.basePAth + "/base/" + fileBase;
     }
 
