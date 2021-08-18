@@ -89,6 +89,7 @@ public class Console {
         
         
         if (digito == 1) {
+
             ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
             "csvs/SelectionSort/selectionSort_ordena_casos.csv", 
             "csvs/SelectionSort/metrics_selectionSort_ordena_casos.csv", 
@@ -103,47 +104,25 @@ public class Console {
             }.start();
 
             casosAcumulados.readCsv(new SelectionSort(true));
-            this.loading = false;
-            
-            clearConsole();
 
             ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
             "csvs/SelectionSort/selectionSort_ordena_obitos.csv", 
             "csvs/SelectionSort/metrics_selectionSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
-            
-            this.loading = true;
-            new Thread() {
-                @Override
-                public void run() {
-                    loading();
-                }
-            }.start();
 
             obitosAcumulados.readCsv(new SelectionSort(true));
-            this.loading = false;
-
-            clearConsole();
 
             ReadCSV cidade = new ReadCSV("csvs/base/casos_cg.csv",
             "csvs/SelectionSort/selectionSort_ordena_cidades.csv", 
             "csvs/SelectionSort/metrics_selectionSort_ordena_cidades.csv", 
             "city", ",");
-            
-            this.loading = true;
-            new Thread() {
-                @Override
-                public void run() {
-                    loading();
-                }
-            }.start();
 
             cidade.readCsv(new SelectionSort(false));
             this.loading = false; 
-
             clearConsole();
 
         } else if (digito == 2) {
+
             ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
             "csvs/InsertionSort/insertionSort_ordena_casos.csv", 
             "csvs/InsertionSort/metrics_insertionSort_ordena_casos.csv", 
@@ -157,28 +136,24 @@ public class Console {
                 }
             }.start();
 
-            casosAcumulados.readCsv(new InsertionSort());
-            this.loading = false;
-
-            clearConsole();
+            casosAcumulados.readCsv(new InsertionSort(true));
 
             ReadCSV obitosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
             "csvs/InsertionSort/InsertionSort_ordena_obitos.csv", 
             "csvs/InsertionSort/metrics_InsertionSort_ordena_obitos.csv", 
             "last_available_deaths", ",");
-            
-            this.loading = true;
-            new Thread() {
-                @Override
-                public void run() {
-                    loading();
-                }
-            }.start();
 
-            obitosAcumulados.readCsv(new InsertionSort());
+            obitosAcumulados.readCsv(new InsertionSort(true));
+
+            ReadCSV cidade = new ReadCSV("csvs/base/casos_cg.csv",
+            "csvs/InsertionSort/InsertionSort_ordena_cidades.csv", 
+            "csvs/InsertionSort/metrics_InsertionSort_ordena_cidades.csv", 
+            "city", ",");
+
+            cidade.readCsv(new InsertionSort(false));
             this.loading = false;
-            
             clearConsole();
+
         } else if (digito == 3) {
             ReadCSV casosAcumulados = new ReadCSV("csvs/base/casos_cg.csv",
             "csvs/MergeSort/MergeSort_ordena_casos.csv", 
