@@ -1,10 +1,10 @@
-import userInterface.UserInterface;
+import Console.Console;
 
 public class Main {
   public static void main(String[] args) {
 
-    UserInterface run = new UserInterface();
+    Console run = new Console();
     run.menu();
 
-  }  
+  }
 }
