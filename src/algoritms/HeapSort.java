@@ -4,10 +4,12 @@ public class HeapSort implements SortInterface {
   
   private int column;
   private Metrics metrics;
+  private boolean sortForInt;
   
-  public HeapSort() {
+  public HeapSort(boolean sortForInt) {
     this.column = 0;
     this.metrics = null;
+    this.sortForInt = sortForInt;
   }
 
   @Override
@@ -56,13 +58,28 @@ public class HeapSort implements SortInterface {
     int l = 2 * i + 1;
     int r = 2 * i + 2;
 
-    if (l < n && Integer.parseInt(matrix[l][this.column]) > Integer.parseInt(matrix[largest][this.column])) {
-      largest = l;
+    if (this.sortForInt) {
+      
+      if (l < n && Integer.parseInt(matrix[l][this.column]) > Integer.parseInt(matrix[largest][this.column])) {
+        largest = l;
+      }
+  
+      if (r < n && Integer.parseInt(matrix[r][this.column]) > Integer.parseInt(matrix[largest][this.column])) {
+        largest = r;
+      }
+      
+    } else {
+      
+      if (l < n && ((matrix[l][this.column]).compareToIgnoreCase(matrix[largest][this.column]) > 0)) {
+        largest = l;
+      }
+  
+      if (r < n && ((matrix[r][this.column]).compareToIgnoreCase(matrix[largest][this.column]) > 0)) {
+        largest = r;
+      }
+
     }
 
-    if (r < n && Integer.parseInt(matrix[r][this.column]) > Integer.parseInt(matrix[largest][this.column])) {
-      largest = r;
-    }
 
     if (largest != i) {
       String [] swap = matrix[i];
