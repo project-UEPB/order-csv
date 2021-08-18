@@ -8,8 +8,6 @@ import algoritms.InsertionSort;
 import algoritms.MergeSort;
 import algoritms.QuickSort;
 
-
-
 public class UserInterface {
     Scanner entrada = new Scanner(System.in);
     boolean loading;
