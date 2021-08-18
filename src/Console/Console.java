@@ -328,7 +328,17 @@ public class Console {
             clearConsole();
         } else if (digito == 8) {
             
+            this.loading = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    loading();
+                }
+            }.start();
+
+            /* Coloque todos os algoritmos entre a Thread e o loading = false */ 
             
+            this.loading = false;
             clearConsole();
         }
         else if (digito == 0) {
