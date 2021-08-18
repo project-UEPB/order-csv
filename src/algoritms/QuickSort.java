@@ -2,11 +2,14 @@ package algoritms;
 
 public class QuickSort implements SortInterface {
   
-  int indexColumn;
-  Metrics metrics;
-  public QuickSort() {
+  private int indexColumn;
+  private Metrics metrics;
+  private boolean sortForInt;
+
+  public QuickSort(boolean sortForInt) {
     this.indexColumn = 1;
     this.metrics = null;
+    this.sortForInt = sortForInt;
   }
 
   @Override
@@ -31,12 +34,27 @@ public class QuickSort implements SortInterface {
     matrix[j] = temp;
   }
 
-  private int partition(String[][] matrix, int low, int high) {
+  private int partitionForInt(String[][] matrix, int low, int high) {
     int pivot = Integer.parseInt(matrix[high][this.indexColumn]); 
     int i = (low - 1); 
   
     for(int j = low; j <= high - 1; j++) {
       if (Integer.parseInt(matrix[j][this.indexColumn]) < pivot) {
+        i++; 
+        swap(matrix, i, j);
+      }
+    }
+
+    swap(matrix, i + 1, high);
+    return (i + 1);
+  }
+  
+  private int partitionForString(String[][] matrix, int low, int high) {
+    String pivot = matrix[high][this.indexColumn].toLowerCase(); 
+    int i = (low - 1); 
+  
+    for(int j = low; j <= high - 1; j++) {
+      if (!((matrix[j][this.indexColumn].toLowerCase()).compareTo(pivot) > 0)) {
         i++; 
         swap(matrix, i, j);
       }
@@ -51,8 +69,13 @@ public class QuickSort implements SortInterface {
     this.metrics.start();
     this.metrics.writeMetrics();
 
+    int pi = 0;
     if (low < high) { 
-      int pi = partition(matrix, low, high);
+      if (this.sortForInt) {
+        pi = partitionForInt(matrix, low, high);
+      } else {
+        pi = partitionForString(matrix, low, high);
+      }
 
       quickSort(matrix, low, pi - 1);
       quickSort(matrix, pi + 1, high);
