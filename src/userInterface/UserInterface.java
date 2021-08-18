@@ -61,8 +61,14 @@ public class UserInterface {
     }
 
     private int getEnter() {
-        int num = entrada.nextInt();
-        return num;
+        String linha = entrada.nextLine(); // ler a linha (termina no enter)
+
+        try{
+            int inteiro = Integer.parseInt(linha); // (tenta converter pra int os dados inseridos)
+            return inteiro;
+        } catch(Exception e){
+            return 20;
+        }
     }
 
     public void program(){

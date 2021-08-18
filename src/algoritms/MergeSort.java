@@ -2,12 +2,14 @@ package algoritms;
 
 public class MergeSort implements SortInterface {
   
-  int indexColumn;
-  Metrics metrics;
-  
-  public MergeSort() {
+  private int indexColumn;
+  private Metrics metrics;
+  private boolean sortForInt;
+
+  public MergeSort(boolean sortForInt) {
     this.indexColumn = 0;
     this.metrics = null;
+    this.sortForInt = sortForInt;
   }
 
   @Override
@@ -26,7 +28,7 @@ public class MergeSort implements SortInterface {
     return matrix;
   }
 
-  public void merge(String matrix[][], int l, int m, int r) {
+  public void mergeForInt(String matrix[][], int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
 
@@ -68,6 +70,48 @@ public class MergeSort implements SortInterface {
       k++;
     }
   }
+  
+  public void mergeForString(String matrix[][], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    String L[][] = new String[n1][matrix[0].length];
+    String R[][] = new String[n2][matrix[0].length];
+
+    for (int i = 0; i < n1; ++i) {
+      L[i] = matrix[l + i];
+    }
+
+    for (int j = 0; j < n2; ++j) {
+      R[j] = matrix[m + 1 + j];
+    }
+
+    int i = 0, j = 0;
+
+    int k = l;
+    while (i < n1 && j < n2) {
+      if (!((L[i][this.indexColumn].toLowerCase()).compareTo(R[j][this.indexColumn].toLowerCase()) > 0)) {
+        matrix[k] = L[i];
+        i++;
+      } else {
+        matrix[k] = R[j];
+        j++;
+      }
+      k++;
+    }
+
+    while (i < n1) {
+      matrix[k] = L[i];
+      i++;
+      k++;
+    }
+
+    while (j < n2) {
+      matrix[k] = R[j];
+      j++;
+      k++;
+    }
+  }
 
   public void run(String matrix[][], int l, int r){
     if (l < r) {
@@ -79,7 +123,11 @@ public class MergeSort implements SortInterface {
       run(matrix, l, m);
       run(matrix, m + 1, r);
 
-      merge(matrix, l, m, r);
+      if (this.sortForInt) {
+        mergeForInt(matrix, l, m, r);
+      } else {
+        mergeForString(matrix, l, m, r);
+      }
 
       this.metrics.start();
       this.metrics.writeMetrics();
