@@ -109,7 +109,7 @@ public class Console {
         System.out.printf("Digite (5) - Quick Sort com Mediana de 3\n\n");
         System.out.printf("Digite (6) - Counting\n\n");
         System.out.printf("Digite (7) - HeapSort\n\n");
-        System.out.printf("Digite (8) - Execultar Todos\n\n");
+        System.out.printf("Digite (8) - Executar Todos\n\n");
         System.out.printf("Digite (0) - SAIR\n\n");
         
         int digito = getEnter();

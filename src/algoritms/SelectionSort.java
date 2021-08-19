@@ -34,19 +34,17 @@ public class SelectionSort implements SortInterface {
     this.metrics.start();
     this.metrics.writeMetrics();
 
-    for (int i = 0; i < matrix.length-2; i++) {
+    for (int i = 0; i < matrix.length-1; i++) {
       int min_idx = i;
       for (int j = i+1; j < matrix.length; j++) {
         if (Integer.parseInt(matrix[j][this.column]) < Integer.parseInt(matrix[min_idx][this.column])) {
           min_idx = j;
         }
-        this.metrics.start();
-        this.metrics.writeMetrics();
       }
 
       String [] temp = matrix[min_idx];
       matrix[min_idx] = matrix[i];
-      matrix[i] = temp;
+      matrix[i] = temp;    
 
       this.metrics.start();
       this.metrics.writeMetrics();
@@ -62,14 +60,12 @@ public class SelectionSort implements SortInterface {
     this.metrics.start();
     this.metrics.writeMetrics();
 
-    for (int i = 0; i < matrix.length-2; i++) {
+    for (int i = 0; i < matrix.length-1; i++) {
       int min_idx = i;
       for (int j = i+1; j < matrix.length; j++) {
         if (!((matrix[j][this.column].toLowerCase()).compareTo(matrix[min_idx][this.column].toLowerCase()) > 0)) {
           min_idx = j;
         }
-        this.metrics.start();
-        this.metrics.writeMetrics();
       }
 
       String [] temp = matrix[min_idx];
