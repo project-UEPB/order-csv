@@ -44,7 +44,7 @@ Este projeto é uma ordenador de dados que tem como base as matérias de Estrutu
 
 Manual do Usuário: <a href="https://docs.google.com/document/d/1QbQYNsw28QscltDH73aQdu_5hyye9lVgo1EX_5VJWa0/edit?usp=sharing">Acessa Manual</a>.
 
-Relatório de Métricas: <a href="https://docs.google.com/document/d/1bH4NmXzvOzymFEn_vAjg4B0RqqD3R6HV2YCT9TruWDc/edit?usp=sharing">Acessa Relatório</a>.
+Relatório de Métricas: <a href="https://docs.google.com/document/d/134d1tPHE6VxdUiEcrAIs9c4zB0ONNXm32fx1rEChnvM/edit?usp=sharing">Acessa Relatório</a>.
 
 ## Passo a passo de execução
 
