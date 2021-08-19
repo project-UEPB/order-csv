@@ -44,9 +44,6 @@ public class InsertionSort implements SortInterface {
       while ((j >= 0) && (Integer.parseInt(matrix[j][this.column]) > key)) {
         matrix[j+1] = matrix[j];
         j = j - 1;
-        
-        this.metrics.start();
-        this.metrics.writeMetrics();
       }
       
       matrix[j+1] = keyRow;
@@ -75,9 +72,6 @@ public class InsertionSort implements SortInterface {
       while ((j >= 0) && ((matrix[j][this.column].toLowerCase()).compareTo(key.toLowerCase()) > 0)) {
         matrix[j+1] = matrix[j];
         j = j - 1;
-        
-        this.metrics.start();
-        this.metrics.writeMetrics();
       }
       
       matrix[j+1] = keyRow;
