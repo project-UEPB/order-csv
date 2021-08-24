@@ -146,6 +146,7 @@ public class Console {
             "city", ",");
 
             cidade.readCsv(new SelectionSort(false));
+
             this.loading = false;
             clearConsole();
              
@@ -180,6 +181,7 @@ public class Console {
             "city", ",");
 
             cidade.readCsv(new InsertionSort(false));
+            
             this.loading = false;
             clearConsole();
 

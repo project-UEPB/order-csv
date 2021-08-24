@@ -1,17 +1,22 @@
 package algoritms;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class SelectionSort implements SortInterface {
   
   private int column;
   private Metrics metrics;
   private boolean sortForInt;
   private String pathToSaveMetrics;
+  private Pattern pattern;
 
   public SelectionSort(boolean sortForInt) {
     this.column = 0;
     this.metrics = null;
     this.sortForInt = false;
     this.pathToSaveMetrics = null;
+    this.pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
   }
 
   @Override
@@ -54,6 +59,10 @@ public class SelectionSort implements SortInterface {
     this.metrics.writeMetrics();
   }
 
+  private String semAcento(String str) {
+    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return this.pattern.matcher(nfdNormalizedString).replaceAll("");
+  }
 
   private void sortForString(String[][] matrix) {
     this.metrics = new Metrics(this.pathToSaveMetrics);
@@ -63,7 +72,8 @@ public class SelectionSort implements SortInterface {
     for (int i = 0; i < matrix.length-1; i++) {
       int min_idx = i;
       for (int j = i+1; j < matrix.length; j++) {
-        if (!((matrix[j][this.column].toLowerCase()).compareTo(matrix[min_idx][this.column].toLowerCase()) > 0)) {
+        if (!((semAcento(matrix[j][this.column]).toLowerCase())
+          .compareTo(semAcento(matrix[min_idx][this.column]).toLowerCase()) > 0)) {
           min_idx = j;
         }
       }
