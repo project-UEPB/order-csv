@@ -1,15 +1,20 @@
 package algoritms;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class MergeSort implements SortInterface {
   
   private int indexColumn;
   private Metrics metrics;
   private boolean sortForInt;
+  private Pattern pattern;
 
   public MergeSort(boolean sortForInt) {
     this.indexColumn = 0;
     this.metrics = null;
     this.sortForInt = sortForInt;
+    this.pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
   }
 
   @Override
@@ -47,7 +52,8 @@ public class MergeSort implements SortInterface {
 
     int k = l;
     while (i < n1 && j < n2) {
-      if (Integer.parseInt(L[i][this.indexColumn]) <= Integer.parseInt(R[j][this.indexColumn])) {
+      if (Integer.parseInt(L[i][this.indexColumn]) 
+        <= Integer.parseInt(R[j][this.indexColumn])) {
         matrix[k] = L[i];
         i++;
       }
@@ -90,7 +96,8 @@ public class MergeSort implements SortInterface {
 
     int k = l;
     while (i < n1 && j < n2) {
-      if (!((L[i][this.indexColumn].toLowerCase()).compareTo(R[j][this.indexColumn].toLowerCase()) > 0)) {
+      if (!((semAcento(L[i][this.indexColumn]).toLowerCase())
+          .compareTo(semAcento(R[j][this.indexColumn]).toLowerCase()) > 0)) {
         matrix[k] = L[i];
         i++;
       } else {
@@ -111,6 +118,11 @@ public class MergeSort implements SortInterface {
       j++;
       k++;
     }
+  }
+
+  private String semAcento(String str) {
+    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return this.pattern.matcher(nfdNormalizedString).replaceAll("");
   }
 
   public void run(String matrix[][], int l, int r){

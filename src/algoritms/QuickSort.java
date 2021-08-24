@@ -1,15 +1,20 @@
 package algoritms;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class QuickSort implements SortInterface {
   
   private int indexColumn;
   private Metrics metrics;
   private boolean sortForInt;
+  private Pattern pattern;
 
   public QuickSort(boolean sortForInt) {
     this.indexColumn = 1;
     this.metrics = null;
     this.sortForInt = sortForInt;
+    this.pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
   }
 
   @Override
@@ -50,11 +55,12 @@ public class QuickSort implements SortInterface {
   }
   
   private int partitionForString(String[][] matrix, int low, int high) {
-    String pivot = matrix[high][this.indexColumn].toLowerCase(); 
-    int i = (low - 1); 
+    String pivot = semAcento(matrix[high][this.indexColumn]).toLowerCase(); 
+    int i = (low - 1);
   
     for(int j = low; j <= high - 1; j++) {
-      if (!((matrix[j][this.indexColumn].toLowerCase()).compareTo(pivot) > 0)) {
+      if (!((semAcento(matrix[j][this.indexColumn]).toLowerCase())
+            .compareTo(pivot) > 0)) {
         i++; 
         swap(matrix, i, j);
       }
@@ -62,6 +68,11 @@ public class QuickSort implements SortInterface {
 
     swap(matrix, i + 1, high);
     return (i + 1);
+  }
+
+  private String semAcento(String str) {
+    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return this.pattern.matcher(nfdNormalizedString).replaceAll("");
   }
 
   private void quickSort(String[][] matrix, int low, int high) {
