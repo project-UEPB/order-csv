@@ -186,7 +186,6 @@ public class Console {
             clearConsole();
 
         } else if (digito == 3) {
-    
 
             ReadCSV casosAcumulados = new ReadCSV(this.fileBase,
             this.basePAth+"/MergeSort/MergeSort_ordena_casos.csv", 
@@ -211,7 +210,7 @@ public class Console {
             
 
             obitosAcumulados.readCsv(new MergeSort(true));
-        
+            
             ReadCSV cidades = new ReadCSV(this.fileBase,
             this.basePAth+"/MergeSort/MergeSort_ordena_cidades.csv", 
             this.basePAth+"/MergeSort/metrics_MergeSort_ordena_cidades.csv", 

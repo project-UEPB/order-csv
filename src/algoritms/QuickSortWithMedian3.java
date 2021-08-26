@@ -91,7 +91,8 @@ public class QuickSortWithMedian3 implements SortInterface {
       swap(left, right, matrix);
     }
 
-    if (Integer.parseInt(matrix[center][this.column]) > Integer.parseInt(matrix[right][this.column])) {
+    if (Integer.parseInt(matrix[center][this.column]) 
+      > Integer.parseInt(matrix[right][this.column])) {
       swap(center, right, matrix);
     }
 
