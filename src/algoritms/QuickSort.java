@@ -1,15 +1,20 @@
 package algoritms;
 
+import java.text.Collator;
+
 public class QuickSort implements SortInterface {
   
   private int indexColumn;
   private Metrics metrics;
   private boolean sortForInt;
+  private final Collator instance;
 
   public QuickSort(boolean sortForInt) {
     this.indexColumn = 1;
     this.metrics = null;
     this.sortForInt = sortForInt;
+    this.instance = Collator.getInstance();
+    this.instance.setStrength(Collator.NO_DECOMPOSITION);
   }
 
   @Override
@@ -51,10 +56,11 @@ public class QuickSort implements SortInterface {
   
   private int partitionForString(String[][] matrix, int low, int high) {
     String pivot = matrix[high][this.indexColumn].toLowerCase(); 
-    int i = (low - 1); 
+    int i = (low - 1);
   
     for(int j = low; j <= high - 1; j++) {
-      if (!((matrix[j][this.indexColumn].toLowerCase()).compareTo(pivot) > 0)) {
+      if (!(this.instance.compare(matrix[j][this.indexColumn].toLowerCase(), 
+      pivot) > 0)) {
         i++; 
         swap(matrix, i, j);
       }

@@ -1,17 +1,21 @@
 package algoritms;
 
+import java.text.Normalizer;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class CountingSort implements SortInterface {
   
   private int column = 0;
   private Metrics metrics;
   private boolean sortForInt;
+  private Pattern pattern;
 
   public CountingSort(boolean sortForInt) {
     this.column = 0;
     this.metrics = null;
     this.sortForInt = sortForInt;
+    this.pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
   }
 
   @Override
@@ -26,6 +30,7 @@ public class CountingSort implements SortInterface {
     if (this.sortForInt) {
       countSortInt(matrix);
     } else {
+      voidForSpace(matrix);
       countSortString(matrix);
     }
 
@@ -81,7 +86,8 @@ public class CountingSort implements SortInterface {
 
     int [] auxCountingArray = new int[matrix.length];
     for (int i = 0; i < matrix.length; i++) {
-      auxCountingArray[i] = (int) (matrix[i][this.column].toLowerCase()).toCharArray()[0];
+      auxCountingArray[i] = (int) (semAcento(matrix[i][this.column])
+                                    .toLowerCase()).toCharArray()[0];
       this.metrics.start();
       this.metrics.writeMetrics();
     }
@@ -93,7 +99,8 @@ public class CountingSort implements SortInterface {
     String output[][] = new String[matrix.length][matrix[0].length];
 
     for (int i = 0; i < matrix.length; i++) {
-      count[((int) (matrix[i][this.column].toLowerCase()).toCharArray()[0]) - min]++;
+      count[((int) (semAcento(matrix[i][this.column])
+                    .toLowerCase()).toCharArray()[0]) - min]++;
       this.metrics.start();
       this.metrics.writeMetrics();
     }
@@ -105,8 +112,10 @@ public class CountingSort implements SortInterface {
     }
 
     for (int i = matrix.length - 1; i >= 0; i--) {
-      output[count[((int) (matrix[i][this.column].toLowerCase()).toCharArray()[0]) - min] - 1] = matrix[i];
-      count[((int) (matrix[i][this.column].toLowerCase()).toCharArray()[0]) - min]--;
+      output[count[((int) (semAcento(matrix[i][this.column])
+                          .toLowerCase()).toCharArray()[0]) - min] - 1] = matrix[i];
+      count[((int) (semAcento(matrix[i][this.column]).
+                    toLowerCase()).toCharArray()[0]) - min]--;
       this.metrics.start();
       this.metrics.writeMetrics();
     }
@@ -117,6 +126,19 @@ public class CountingSort implements SortInterface {
       this.metrics.writeMetrics();
     }
 
+  }
+
+  private String semAcento(String str) {
+    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return this.pattern.matcher(nfdNormalizedString).replaceAll("");
+  }
+
+  private void voidForSpace(String [][] matrix) {
+    for (int i = 0; i < matrix.length; i++) {
+      if (matrix[i][this.column].length() == 0) {
+        matrix[i][this.column] = " ";
+      }
+    }
   }
 
 }

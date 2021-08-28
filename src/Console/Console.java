@@ -288,6 +288,7 @@ public class Console {
             cidades.readCsv(new QuickSortWithMedian3(false));
             this.loading = false;
 
+
             clearConsole();
             
         } else if (digito == 6) {
