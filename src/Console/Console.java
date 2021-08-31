@@ -561,8 +561,10 @@ public class Console {
 
     public void creditos(){
         System.out.printf("Desenvolvedores :\n\n");
-        System.out.printf("João Vitor Barbosa - joao.vitor@aluno.uepb.edu.br\n\n");
-        System.out.printf("Klayton Marcos - klayton.junior@aluno.uepb.edu.br\n\n");
+        System.out.printf("João Vitor Barbosa - joao.vitor@aluno.uepb.edu.br\n");
+        System.out.printf("Github -> joaoo-vittor\n\n");
+        System.out.printf("Klayton Marcos - klayton.junior@aluno.uepb.edu.br\n");
+        System.out.printf("Github -> KlaytonJr\n\n");
         promptEnterKey();
         clearConsole();   
     }
