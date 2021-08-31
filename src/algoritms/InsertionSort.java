@@ -1,17 +1,22 @@
 package algoritms;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class InsertionSort implements SortInterface {
 
   private int column;
   private Metrics metrics;
   private boolean sortForInteger;
   private String pathToSaveMetrics;
+  private Pattern pattern;
 
   public InsertionSort(boolean sortForInteger) {
     this.column = 0;
     this.metrics = null;
     this.sortForInteger = sortForInteger;
     this.pathToSaveMetrics = null;
+    this.pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
   }
 
   @Override
@@ -69,7 +74,8 @@ public class InsertionSort implements SortInterface {
       String [] keyRow = matrix[i];
       j = i - 1;
 
-      while ((j >= 0) && ((matrix[j][this.column].toLowerCase()).compareTo(key.toLowerCase()) > 0)) {
+      while ((j >= 0) && ((semAcento(matrix[j][this.column]).toLowerCase())
+                          .compareTo(semAcento(key).toLowerCase()) > 0)) {
         matrix[j+1] = matrix[j];
         j = j - 1;
       }
@@ -82,6 +88,11 @@ public class InsertionSort implements SortInterface {
 
     this.metrics.start();
     this.metrics.writeMetrics();
+  }
+
+  private String semAcento(String str) {
+    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return this.pattern.matcher(nfdNormalizedString).replaceAll("");
   }
 
 }

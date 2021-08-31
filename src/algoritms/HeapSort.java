@@ -1,15 +1,20 @@
 package algoritms;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 public class HeapSort implements SortInterface {
   
   private int column;
   private Metrics metrics;
   private boolean sortForInt;
+  private Pattern pattern;
   
   public HeapSort(boolean sortForInt) {
     this.column = 0;
     this.metrics = null;
     this.sortForInt = sortForInt;
+    this.pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
   }
 
   @Override
@@ -60,21 +65,25 @@ public class HeapSort implements SortInterface {
 
     if (this.sortForInt) {
       
-      if (l < n && Integer.parseInt(matrix[l][this.column]) > Integer.parseInt(matrix[largest][this.column])) {
+      if (l < n && Integer.parseInt(matrix[l][this.column]) 
+        > Integer.parseInt(matrix[largest][this.column])) {
         largest = l;
       }
   
-      if (r < n && Integer.parseInt(matrix[r][this.column]) > Integer.parseInt(matrix[largest][this.column])) {
+      if (r < n && Integer.parseInt(matrix[r][this.column]) 
+        > Integer.parseInt(matrix[largest][this.column])) {
         largest = r;
       }
       
     } else {
       
-      if (l < n && ((matrix[l][this.column]).compareToIgnoreCase(matrix[largest][this.column]) > 0)) {
+      if (l < n && ((semAcento(matrix[l][this.column]))
+        .compareToIgnoreCase(semAcento(matrix[largest][this.column])) > 0)) {
         largest = l;
       }
   
-      if (r < n && ((matrix[r][this.column]).compareToIgnoreCase(matrix[largest][this.column]) > 0)) {
+      if (r < n && ((semAcento(matrix[r][this.column]))
+        .compareToIgnoreCase(semAcento(matrix[largest][this.column])) > 0)) {
         largest = r;
       }
 
@@ -88,6 +97,11 @@ public class HeapSort implements SortInterface {
 
       heapify(matrix, n, largest);
     }
+  }
+
+  private String semAcento(String str) {
+    String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return this.pattern.matcher(nfdNormalizedString).replaceAll("");
   }
 
 }

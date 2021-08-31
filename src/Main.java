@@ -6,5 +6,5 @@ public class Main {
     Console console = new Console("caso_full_tratado.csv");
     console.menu();
 
-  } 
+  }
 }
