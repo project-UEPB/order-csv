@@ -133,19 +133,19 @@ public class Console {
 
             casosAcumulados.readCsv(new SelectionSort(true));
             
-            // ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
-            // this.basePAth+"/SelectionSort/selectionSort_ordena_obitos.csv", 
-            // this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_obitos.csv", 
-            // "last_available_deaths", ",");
+            ReadCSV obitosAcumulados = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_obitos.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_obitos.csv", 
+            "last_available_deaths", ",");
 
-            // obitosAcumulados.readCsv(new SelectionSort(true));
+            obitosAcumulados.readCsv(new SelectionSort(true));
 
-            // ReadCSV cidade = new ReadCSV(this.fileBase,
-            // this.basePAth+"/SelectionSort/selectionSort_ordena_cidades.csv", 
-            // this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_cidades.csv", 
-            // "city", ",");
+            ReadCSV cidade = new ReadCSV(this.fileBase,
+            this.basePAth+"/SelectionSort/selectionSort_ordena_cidades.csv", 
+            this.basePAth+"/SelectionSort/metrics_selectionSort_ordena_cidades.csv", 
+            "city", ",");
 
-            // cidade.readCsv(new SelectionSort(false));
+            cidade.readCsv(new SelectionSort(false));
 
             this.loading = false;
             clearConsole();
