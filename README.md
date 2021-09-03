@@ -50,9 +50,9 @@ Relatório de Métricas: <a href="https://docs.google.com/document/d/134d1tPHE6V
 
 <ol>
   <li>Fazer o download do zip e descompactar</li>
-  <li>Já deixamos pronto para ser executado com o arquivo completo dos dados, caso deseje alterar o arquivo .csv é aconselhavél seguir o <a href="https://docs.google.com/document/d/1QbQYNsw28QscltDH73aQdu_5hyye9lVgo1EX_5VJWa0/edit?usp=sharing">Manual do Usuário</a></li>
-  <li>Acessar via terminal a pasta do código, e por fim acessar a pasta src</li>
-  <li>Dar os comandos para executar "javac Main.java" e posteriormente java Main</li>
+  <li>Adicionar o arquivo que deseja ordenar no diretório: /src/csvs/base</li>
+  <li>Colocar o nome do arquivo no arquivo Main.java onde tem "nomeDoArquivo.csv"</li>
+  <li>Dar os comandos para executar "javac Main.java" e posteriormente "java Main"</li>
   <li>A execução se inicia e apartir dai o usuário seleciona o que desejar</li>
 </ol>
 
